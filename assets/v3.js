@@ -13,4 +13,8 @@ $$("[data-toggle],.switch").forEach(x=>x.onclick=()=>x.classList.toggle("on"));
 $$("form").forEach(f=>f.addEventListener("submit",e=>{e.preventDefault();if(!f.querySelector(".form-success"))f.insertAdjacentHTML("beforeend",'<div class="form-success">Thanks — your request has been received.</div>')}));
 $$("button").forEach(b=>{if((b.textContent||"").match(/Choose Premium|Start Plan|Create Account|Login/))b.addEventListener("click",()=>{localStorage.setItem("aigym-last-action",b.textContent.trim())})});
 if(!$(".floating-help")&&!file.includes("login")&&!file.includes("signup")){const h=document.createElement("a");h.className="floating-help";h.href="contact.html";h.title="AIGYM Support";h.textContent="?";document.body.appendChild(h)}
+
+$("img").forEach(img=>{if(!img.getAttribute("loading"))img.loading="lazy";if(!img.alt)img.alt="AIGYM fitness visual"});
+$("button").forEach((b,i)=>{if(!b.getAttribute("aria-label")&&!b.textContent.trim())b.setAttribute("aria-label","AIGYM action "+(i+1))});
+$("a").forEach(a=>{if(a.target==="_blank"&&!a.rel)a.rel="noopener noreferrer"});
 })();
