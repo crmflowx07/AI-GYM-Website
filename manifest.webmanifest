@@ -1,0 +1,15 @@
+{
+  "name": "AIGYM — AI Fitness Platform",
+  "short_name": "AIGYM",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#030b18",
+  "theme_color": "#2cebdc",
+  "description": "AI-powered workouts, nutrition, progress, recovery and coaching.",
+  "categories": [
+    "fitness",
+    "health",
+    "lifestyle"
+  ]
+}

@@ -1,0 +1,28 @@
+(function(){
+const style=document.createElement("style");style.textContent=".scroll-progress{position:fixed;left:0;top:0;height:3px;background:linear-gradient(90deg,#2cebdc,#2fcaff,#7046ff);z-index:999;width:0}.navlinks a.active{color:#2cebdc}.glass,.phase-card,.metric{transition:transform .22s,border-color .22s,box-shadow .22s}.glass:hover,.phase-card:hover,.metric:hover{transform:translateY(-3px);border-color:rgba(44,235,220,.36);box-shadow:0 24px 60px rgba(0,0,0,.3),0 0 32px rgba(44,235,220,.07)}.v6-badge{display:inline-flex;padding:6px 10px;border-radius:99px;background:rgba(44,235,220,.08);border:1px solid rgba(44,235,220,.25);color:#2cebdc;font-size:10px;font-weight:900}.reveal-v6{opacity:0;transform:translateY(18px);transition:.55s}.reveal-v6.on{opacity:1;transform:none}.form-success{padding:12px;border-radius:12px;background:rgba(44,232,157,.09);border:1px solid rgba(44,232,157,.32);color:#7ef0bb;margin-top:10px}.floating-help{position:fixed;right:18px;bottom:18px;width:52px;height:52px;border-radius:17px;background:linear-gradient(135deg,#2cebdc,#7046ff);display:grid;place-items:center;color:#03111c;font-weight:1000;box-shadow:0 18px 42px rgba(44,235,220,.18);z-index:80}.counter-v6{font-variant-numeric:tabular-nums}@media(max-width:980px){.floating-help{bottom:78px}}";document.head.appendChild(style);
+const progress=document.createElement("div");progress.className="scroll-progress";document.body.appendChild(progress);
+window.addEventListener("scroll",()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max?scrollY/max*100:0)+"%"});
+const $$=(s,c=document)=>[...c.querySelectorAll(s)],$=(s,c=document)=>c.querySelector(s);
+const file=location.pathname.split("/").pop()||"index.html";$$(".navlinks a").forEach(a=>{if((a.getAttribute("href")||"").split("#")[0]===file)a.classList.add("active")});
+$$("[data-reveal],.glass,.phase-card,.metric").forEach(el=>el.classList.add("reveal-v6"));
+if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}}),{threshold:.06});$$(".reveal-v6").forEach(x=>io.observe(x))}else $$(".reveal-v6").forEach(x=>x.classList.add("on"));
+$$("[data-filter]").forEach(btn=>btn.addEventListener("click",()=>{const g=btn.closest("[data-filter-group]")||document;$$("[data-filter]",g).forEach(b=>b.classList.remove("active"));btn.classList.add("active");const k=btn.dataset.filter;$$("[data-category]").forEach(c=>c.classList.toggle("hidden-card",k!=="all"&&c.dataset.category!==k))}));
+$$("[data-modal-open]").forEach(b=>b.onclick=()=>$("#"+b.dataset.modalOpen)?.classList.add("open"));$$("[data-modal-close]").forEach(b=>b.onclick=()=>b.closest(".modal")?.classList.remove("open"));document.addEventListener("keydown",e=>{if(e.key==="Escape")$$(".modal.open").forEach(m=>m.classList.remove("open"))});
+$$("[data-toast]").forEach(b=>b.onclick=()=>{let t=$("#toast")||$(".toast");if(!t){t=document.createElement("div");t.className="toast";document.body.appendChild(t)}t.textContent=b.dataset.toast||"Saved";t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)});
+$$("[data-toggle],.switch").forEach(x=>x.onclick=()=>x.classList.toggle("on"));
+$$("form").forEach(f=>f.addEventListener("submit",e=>{e.preventDefault();if(!f.querySelector(".form-success"))f.insertAdjacentHTML("beforeend",'<div class="form-success">Thanks — your request has been received.</div>')}));
+$$("button").forEach(b=>{if((b.textContent||"").match(/Choose Premium|Start Plan|Create Account|Login/))b.addEventListener("click",()=>{localStorage.setItem("aigym-last-action",b.textContent.trim())})});
+if(!$(".floating-help")&&!file.includes("login")&&!file.includes("signup")){const h=document.createElement("a");h.className="floating-help";h.href="contact.html";h.title="AIGYM Support";h.textContent="?";document.body.appendChild(h)}
+
+$("img").forEach(img=>{if(!img.getAttribute("loading"))img.loading="lazy";if(!img.alt)img.alt="AIGYM fitness visual"});
+$("button").forEach((b,i)=>{if(!b.getAttribute("aria-label")&&!b.textContent.trim())b.setAttribute("aria-label","AIGYM action "+(i+1))});
+$("a").forEach(a=>{if(a.target==="_blank"&&!a.rel)a.rel="noopener noreferrer"});
+
+
+const main=document.querySelector("main");if(main&&!main.id)main.id="main-content";
+if(main&&!document.querySelector(".skip-link")){const skip=document.createElement("a");skip.className="skip-link";skip.href="#main-content";skip.textContent="Skip to main content";document.body.prepend(skip)}
+if(!document.querySelector(".back-top")){const b=document.createElement("button");b.className="back-top";b.setAttribute("aria-label","Back to top");b.textContent="↑";document.body.appendChild(b);b.onclick=()=>scrollTo({top:0,behavior:"smooth"});addEventListener("scroll",()=>b.classList.toggle("show",scrollY>500))}
+document.addEventListener("keydown",e=>{if(e.key==="/"&&!/INPUT|TEXTAREA/.test(document.activeElement?.tagName||"")){const first=document.querySelector("input");if(first){e.preventDefault();first.focus()}}});
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+let deferredInstall=null;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstall=e;const b=document.createElement("button");b.className="btn btn-primary";b.id="installAIGYM";b.textContent="Install AIGYM";b.style.position="fixed";b.style.left="18px";b.style.bottom="18px";b.style.zIndex="90";document.body.appendChild(b);b.onclick=async()=>{if(!deferredInstall)return;deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null;b.remove()}});
+})();

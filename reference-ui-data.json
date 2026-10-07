@@ -1,0 +1,25 @@
+{
+  "brand": {
+    "landing_title": "Smarter Workouts with AI",
+    "landing_subtitle": "Personalized plans, real-time guidance and better results for a healthier you."
+  },
+  "user": {
+    "name": "Edward James",
+    "membership": "Premium Member",
+    "weight": "72.5 kg"
+  },
+  "dashboard": {
+    "calories": "234",
+    "calories_label": "Calories Burned",
+    "week_workouts": "7",
+    "active_plans": "4",
+    "today_workout": "Push Day",
+    "muscles": "Chest • Shoulders • Triceps"
+  },
+  "workout": {"featured":"Bench Press","tags":["Chest","Strength","Compound"],"sets":"4","reps":"12","rest":"60s","exercises":[["Bench Press","4 sets • 12 reps"],["Incline Dumbbell Press","4 sets • 12 reps"],["Shoulder Press","4 sets • 10 reps"],["Tricep Pushdown","4 sets • 15 reps"],["Dips","3 sets • 12 reps"]]},
+  "coach": {"message":"Hi Edward 👋 How can I help you today?","actions":["Create a workout plan","Suggest a meal plan","Analyze my progress","Answer fitness questions"],"plan":"Muscle Gain Pro","duration":"12 Weeks Program","goal":"Build Muscle","suggestions":["Increase protein intake","Add 1 more cardio session","Focus on progressive overload","Maintain 7-8 hours sleep"]},
+  "nutrition":{"calories":"1,450","target":"2,300","macros":[["Protein","120g / 170g"],["Carbs","100g / 250g"],["Fats","60g / 70g"]]},
+  "progress":{"weight":"72.5 kg","delta":"+ 2.5 kg","bmi":"22.1","body_fat":"14.5%","muscle_mass":"54.2 kg"},
+  "community":{"challenge":"30 Day Fitness Challenge","progress":"65%","trainers":["Alex Carter","Sophia Lee","Ryan Miller"]},
+  "profile":{"price":"$9.99 / month","billing":"Next billing: 12 Jun 2026","menu":["My Plan","Achievements","Settings","Help & Support"]}
+}
