@@ -17,4 +17,7 @@ if(!$(".floating-help")&&!file.includes("login")&&!file.includes("signup")){cons
 $("img").forEach(img=>{if(!img.getAttribute("loading"))img.loading="lazy";if(!img.alt)img.alt="AIGYM fitness visual"});
 $("button").forEach((b,i)=>{if(!b.getAttribute("aria-label")&&!b.textContent.trim())b.setAttribute("aria-label","AIGYM action "+(i+1))});
 $("a").forEach(a=>{if(a.target==="_blank"&&!a.rel)a.rel="noopener noreferrer"});
+
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+let deferredInstall=null;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstall=e;const b=document.createElement("button");b.className="btn btn-primary";b.id="installAIGYM";b.textContent="Install AIGYM";b.style.position="fixed";b.style.left="18px";b.style.bottom="18px";b.style.zIndex="90";document.body.appendChild(b);b.onclick=async()=>{if(!deferredInstall)return;deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null;b.remove()}});
 })();
