@@ -18,6 +18,11 @@ $("img").forEach(img=>{if(!img.getAttribute("loading"))img.loading="lazy";if(!im
 $("button").forEach((b,i)=>{if(!b.getAttribute("aria-label")&&!b.textContent.trim())b.setAttribute("aria-label","AIGYM action "+(i+1))});
 $("a").forEach(a=>{if(a.target==="_blank"&&!a.rel)a.rel="noopener noreferrer"});
 
+
+const main=document.querySelector("main");if(main&&!main.id)main.id="main-content";
+if(main&&!document.querySelector(".skip-link")){const skip=document.createElement("a");skip.className="skip-link";skip.href="#main-content";skip.textContent="Skip to main content";document.body.prepend(skip)}
+if(!document.querySelector(".back-top")){const b=document.createElement("button");b.className="back-top";b.setAttribute("aria-label","Back to top");b.textContent="↑";document.body.appendChild(b);b.onclick=()=>scrollTo({top:0,behavior:"smooth"});addEventListener("scroll",()=>b.classList.toggle("show",scrollY>500))}
+document.addEventListener("keydown",e=>{if(e.key==="/"&&!/INPUT|TEXTAREA/.test(document.activeElement?.tagName||"")){const first=document.querySelector("input");if(first){e.preventDefault();first.focus()}}});
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 let deferredInstall=null;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstall=e;const b=document.createElement("button");b.className="btn btn-primary";b.id="installAIGYM";b.textContent="Install AIGYM";b.style.position="fixed";b.style.left="18px";b.style.bottom="18px";b.style.zIndex="90";document.body.appendChild(b);b.onclick=async()=>{if(!deferredInstall)return;deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null;b.remove()}});
 })();
